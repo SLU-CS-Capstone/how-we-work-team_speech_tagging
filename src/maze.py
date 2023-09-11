@@ -1,4 +1,5 @@
 from graph import Graph
+from fpdf import FPDF
 
 class Maze:
     def __init__(self, size):
@@ -36,27 +37,32 @@ class Maze:
                 if spanning_tree.has_edge(i, j):
                     self.graph.remove_edge(i, j);
                     
-    def print(self):
-        result = ' '+('_ ' * (self.size-1))+'_\n'
-        for i in range(self.size):
-            result+='|'
-            for j in range(self.size):
-                node = self.nodes[i][j]
-                # check the floor (bottom wall)
-                if i < self.size-1 and self.graph.has_edge(node, self.nodes[i+1][j]):
-                    result+='_'
-                elif (i == self.size-1):
-                    result+='_'
-                else:
-                    result+=' '
+    def print(self, output):
+        if output == "Terminal":
+            result = ' '+('_ ' * (self.size-1))+'_\n'
+            for i in range(self.size):
+                result+='|'
+                for j in range(self.size):
+                    node = self.nodes[i][j]
+                    # check the floor (bottom wall)
+                    if i < self.size-1 and self.graph.has_edge(node, self.nodes[i+1][j]):
+                        result+='_'
+                    elif (i == self.size-1):
+                        result+='_'
+                    else:
+                        result+=' '
 
-                # check the right wall
-                if j < self.size-1 and self.graph.has_edge(node, self.nodes[i][j+1]):
-                    result+='|'
-                elif i < self.size-1 and j < self.size-1:
-                    result+=' '
-                elif i == self.size-1 and j < self.size-1:
-                    result+='_'
-            result+='|\n'
-        print(result)
-
+                    # check the right wall
+                    if j < self.size-1 and self.graph.has_edge(node, self.nodes[i][j+1]):
+                        result+='|'
+                    elif i < self.size-1 and j < self.size-1:
+                        result+=' '
+                    elif i == self.size-1 and j < self.size-1:
+                        result+='_'
+                result+='|\n'
+            print(result)
+        elif output == "PDF":
+            #print to PDF
+            #different change
+        else:
+            print("Wrong option parameter\n")
