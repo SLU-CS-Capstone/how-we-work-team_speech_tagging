@@ -1,6 +1,11 @@
 from maze import Maze
+import sys
 
-maze = Maze(20)
-maze.generate_maze()
-maze.print()
-print("Welcome to 2D maze")
+try:
+    maze_size = int(sys.argv[1])
+    maze = Maze(maze_size)
+    maze.generate_maze()
+    maze.print()
+    print("Welcome to 2D maze")
+except:
+    print("Exception Occurred. Maze size not given or incorrect format.")
