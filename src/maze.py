@@ -1,10 +1,12 @@
 from graph import Graph
 
 class Maze:
-    def __init__(self, size):
-        self.size = size
+    def __init__(self, length, width): #commenting here
+        #self.size = size
+        self.length = length
+        self.width = width
         self.nodes = []
-        self.graph = Graph(size*size)
+        self.graph = Graph(length*width)
 
         # label the nodes from 0 to (N*N)-1
         for i in range(0, self.size):
@@ -13,8 +15,8 @@ class Maze:
                 self.nodes[i].append(i*self.size + j)
 
         # each node in the graph is connected to UP, DOWN, LEFT, RIGHT (if they exist)
-        for i in range(0, self.size):
-            for j in range(0, self.size):
+        for i in range(0, self.length):
+            for j in range(0, self.width):
                 node = self.nodes[i][j]
                 if i > 0:
                     up = self.nodes[i-1][j]
@@ -38,24 +40,24 @@ class Maze:
                     
     def print(self):
         result = ' '+('_ ' * (self.size-1))+'_\n'
-        for i in range(self.size):
+        for i in range(self.length):
             result+='|'
-            for j in range(self.size):
+            for j in range(self.width):
                 node = self.nodes[i][j]
                 # check the floor (bottom wall)
-                if i < self.size-1 and self.graph.has_edge(node, self.nodes[i+1][j]):
+                if i < self.length-1 and self.graph.has_edge(node, self.nodes[i+1][j]):
                     result+='_'
-                elif (i == self.size-1):
+                elif (i == self.length-1):
                     result+='_'
                 else:
                     result+=' '
 
                 # check the right wall
-                if j < self.size-1 and self.graph.has_edge(node, self.nodes[i][j+1]):
+                if j < self.width-1 and self.graph.has_edge(node, self.nodes[i][j+1]):
                     result+='|'
-                elif i < self.size-1 and j < self.size-1:
+                elif i < self.width-1 and j < self.width-1:
                     result+=' '
-                elif i == self.size-1 and j < self.size-1:
+                elif i == self.width-1 and j < self.width-1:
                     result+='_'
             result+='|\n'
         print(result)
