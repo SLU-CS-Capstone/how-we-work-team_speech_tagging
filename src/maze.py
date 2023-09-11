@@ -63,5 +63,6 @@ class Maze:
             print(result)
         elif output == "PDF":
             #print to PDF
+            #different change
         else:
             print("Wrong option parameter\n")
